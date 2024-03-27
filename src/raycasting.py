@@ -2,6 +2,7 @@ import pygame as pg
 import math
 from settings import *
 
+
 class RayCasting:
     def __init__(self, game):
         self.game = game
@@ -31,7 +32,7 @@ class RayCasting:
                     break
                 x_hor += dx
                 y_hor += dy
-                depth_hor = delta_depth
+                depth_hor += delta_depth
             
             # vertical
             x_vert, dx = (x_map + 1, 1) if cos_a > 0 else (x_map - 1e-6, -1)
@@ -48,7 +49,7 @@ class RayCasting:
                     break
                 x_vert += dx
                 y_vert += dy
-                depth_vert = delta_depth
+                depth_vert += delta_depth
                 
             # depth
             if depth_vert < depth_hor:
@@ -57,8 +58,7 @@ class RayCasting:
                 depth = depth_hor
                 
             #debug
-            
-            pg.draw.line(self.game.screen, 'yellow', (100 * ox, 100 * oy),
+            pg.draw.line(self.game.screen, 'darkgray', (ox * 100, oy * 100),
                          (100 * ox + 100 * depth * cos_a, 100 * oy + 100 * depth * sin_a), 2)
             
             ray_angle += DELTA_ANGLE
